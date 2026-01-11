@@ -17,7 +17,12 @@ import {
   X,
   Github,
   Folder,
-  MessageCircle
+  MessageCircle,
+  UserPlus,
+  Mic,
+  Brain,
+  Activity,
+  Scan
 } from 'lucide-react';
 
 // --- 3D Background Component ---
@@ -246,15 +251,12 @@ const TiltCard = ({ children }) => {
       ref={cardRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative w-full aspect-square rounded-full flex items-center justify-center transition-transform duration-100 ease-out"
+      className="relative w-full aspect-square rounded-full flex items-center justify-center transition-transform duration-100 ease-out z-20"
       style={{
         transform: `perspective(1000px) rotateX(${rotation.x}deg) rotateY(${rotation.y}deg)`,
       }}
     >
-       {/* Decorative Rings */}
-       <div className="absolute inset-0 rounded-full border border-cyan-500/20 shadow-[0_0_50px_rgba(6,182,212,0.1)]"></div>
-       <div className="absolute inset-4 rounded-full border border-purple-500/20"></div>
-       
+       {/* Card Content */}
        {children}
     </div>
   );
@@ -433,8 +435,8 @@ export default function App() {
               <a href="#contact" className="px-8 py-3 bg-cyan-500 hover:bg-cyan-600 text-black font-bold rounded-full transition-all shadow-[0_0_20px_rgba(6,182,212,0.5)]">
                 Connect With Me
               </a>
-              <a href="https://www.linkedin.com/in/jitsa00" target="_blank" rel="noreferrer" className="px-8 py-3 border border-white/20 hover:bg-white/10 rounded-full transition-all flex items-center gap-2">
-                <ExternalLink size={18} /> View Linkedin Profile
+              <a href="https://www.linkedin.com/in/jitsa00/" target="_blank" rel="noreferrer" className="px-8 py-3 border border-white/20 hover:bg-white/10 rounded-full transition-all flex items-center gap-2">
+                <ExternalLink size={18} /> View Linkedin
               </a>
             </div>
             
@@ -445,16 +447,56 @@ export default function App() {
             </div>
           </div>
 
-          {/* Hero Visual - Moveable 3D Tilt Element */}
+          {/* Hero Visual - "Alive" Holographic Tech Reactor */}
           <div className="relative z-10 hidden md:flex items-center justify-center">
-             <TiltCard>
-                <div className="text-center p-8 bg-black/80 backdrop-blur-xl rounded-2xl border border-white/10 shadow-2xl relative z-20">
-                  <p className="text-cyan-400 font-mono text-sm mb-2">&lt;CurrentFocus&gt;</p>
-                  <p className="text-white font-bold text-xl">AI for TB Diagnosis</p>
-                  <p className="text-gray-400 text-sm mt-2">Saving lives, not just crunching numbers.</p>
-                  <p className="text-cyan-400 font-mono text-sm mt-2">&lt;/CurrentFocus&gt;</p>
-                </div>
-             </TiltCard>
+            {/* Orbital System Container */}
+            <div className="relative w-[400px] h-[400px] flex items-center justify-center">
+               
+               {/* 1. Large Dashed Ring (Slow Rotate) */}
+               <div className="absolute inset-0 rounded-full border border-cyan-500/30 border-dashed animate-[spin_20s_linear_infinite]"></div>
+               
+               {/* 2. Medium Dotted Ring (Reverse Slow Rotate) */}
+               <div className="absolute inset-8 rounded-full border border-purple-500/30 border-dotted animate-[spin_15s_linear_infinite_reverse]"></div>
+               
+               {/* 3. Orbiting Satellite: Brain (AI) */}
+               <div className="absolute inset-0 animate-[spin_25s_linear_infinite]">
+                 <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gray-900 p-2 rounded-full border border-cyan-500 shadow-[0_0_15px_rgba(6,182,212,0.5)]">
+                   <Brain size={20} className="text-cyan-400" />
+                 </div>
+               </div>
+               
+               {/* 4. Orbiting Satellite: Activity (Health) */}
+               <div className="absolute inset-12 animate-[spin_18s_linear_infinite_reverse]">
+                 <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 bg-gray-900 p-2 rounded-full border border-purple-500 shadow-[0_0_15px_rgba(168,85,247,0.5)]">
+                   <Activity size={20} className="text-purple-400" />
+                 </div>
+               </div>
+
+               {/* 5. Central Interactive Card */}
+               <TiltCard>
+                  <div className="relative text-center p-8 bg-black/80 backdrop-blur-xl rounded-2xl border border-cyan-500/30 shadow-[0_0_30px_rgba(6,182,212,0.2)] overflow-hidden group">
+                    
+                    {/* Scanning Beam Effect */}
+                    <div className="absolute top-0 left-0 w-full h-[2px] bg-cyan-400 shadow-[0_0_10px_rgba(6,182,212,1)] animate-[ping_3s_cubic-bezier(0,0,0.2,1)_infinite] opacity-50"></div>
+                    
+                    {/* Content */}
+                    <div className="relative z-10">
+                      <div className="flex justify-center mb-3">
+                         <Scan size={32} className="text-cyan-400 animate-pulse" />
+                      </div>
+                      <p className="text-cyan-400 font-mono text-xs mb-2 tracking-widest">&lt;SYSTEM_FOCUS&gt;</p>
+                      <h3 className="text-white font-bold text-2xl mb-1">AI x Health</h3>
+                      <p className="text-white/80 font-semibold text-lg">TB Diagnosis</p>
+                      <div className="h-px w-full bg-gradient-to-r from-transparent via-gray-500 to-transparent my-3"></div>
+                      <p className="text-gray-400 text-xs mt-2 italic">"Saving lives, not just<br/>crunching numbers."</p>
+                      <p className="text-cyan-400 font-mono text-xs mt-3 tracking-widest">&lt;/SYSTEM_FOCUS&gt;</p>
+                    </div>
+
+                    {/* Background Grid Scan Effect inside Card */}
+                    <div className="absolute inset-0 bg-[linear-gradient(rgba(6,182,212,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(6,182,212,0.03)_1px,transparent_1px)] bg-[size:20px_20px]"></div>
+                  </div>
+               </TiltCard>
+            </div>
           </div>
         </div>
 
@@ -470,17 +512,60 @@ export default function App() {
           <SectionTitle icon={Terminal} title="The Man Behind The Code" subtitle="Bridging the gap between Academia, Industry, and the Soil." />
           
           <div className="grid md:grid-cols-3 gap-8">
-            <Card className="md:col-span-2">
-              <h3 className="text-2xl font-bold text-white mb-4">My Multiverse</h3>
-              <p className="text-gray-300 mb-6 leading-relaxed">
-                I operate at the intersection of conflicting worlds. By day, I am an <strong>Assistant Professor</strong> guiding BCA & BTech students to break and rebuild technology. By night, I research <strong>AI/ML for Tuberculosis Diagnosis</strong>. 
-              </p>
-              <p className="text-gray-300 mb-6 leading-relaxed">
-                But my roots are deep—literally. I am a <strong>farmer</strong> and poet who believes tech should serve people first. Whether I'm securing cyberspace as a <strong>Certified Ethical Hacker</strong> or tending to the fields in Rajasthan, my mission remains the same: <strong>Growth.</strong>
-              </p>
-              <div className="flex flex-wrap gap-2 mt-4">
-                {['Python', 'Machine Learning', 'Cybersecurity', 'Tuberculosis Research', 'Poetry', 'Farming'].map(tag => (
-                  <span key={tag} className="px-3 py-1 rounded-md bg-cyan-500/10 text-cyan-400 text-xs font-mono border border-cyan-500/20">
+            <Card className="md:col-span-2 h-full flex flex-col">
+              <h3 className="text-3xl font-bold text-white mb-6 flex items-center gap-3">
+                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500">My Multiverse</span>
+                 <span className="text-sm font-mono text-gray-500 font-normal px-2 py-1 border border-gray-700 rounded bg-gray-900">v2.0.26</span>
+              </h3>
+
+              {/* Terminal / Code Identity Block */}
+              <div className="bg-black/50 p-5 rounded-lg border border-gray-800 font-mono text-xs md:text-sm text-gray-300 mb-8 shadow-inner relative overflow-hidden group">
+                <div className="absolute top-0 right-0 p-2 opacity-50 group-hover:opacity-100 transition-opacity">
+                  <Cpu size={16} className="text-gray-600" />
+                </div>
+                <div className="flex gap-2 mb-4 border-b border-gray-800 pb-2">
+                  <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                  <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                  <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                </div>
+                <div className="space-y-2">
+                  <p><span className="text-pink-500">const</span> <span className="text-blue-400">identity</span> = <span className="text-yellow-300">"Technocrat"</span>;</p>
+                  <p><span className="text-pink-500">let</span> <span className="text-blue-400">day_job</span> = <span className="text-green-400">"Assistant Professor @ JNU"</span>;</p>
+                  <p><span className="text-pink-500">let</span> <span className="text-blue-400">night_mode</span> = <span className="text-green-400">"AI Researcher (TB Diagnosis)"</span>;</p>
+                  <p><span className="text-pink-500">let</span> <span className="text-blue-400">roots</span> = [<span className="text-orange-400">"Farmer"</span>, <span className="text-orange-400">"Poet"</span>, <span className="text-orange-400">"Human"</span>];</p>
+                  <p className="animate-pulse text-cyan-500 mt-2">&gt; executing social_impact_protocol...</p>
+                </div>
+              </div>
+
+              <div className="space-y-6 text-gray-300 leading-relaxed text-lg font-light flex-grow">
+                <p>
+                  I operate at the intersection of conflicting worlds. By day, I am an <strong className="text-white">Assistant Professor</strong> guiding BCA & BTech students to break and rebuild technology, refusing to be boring in a lecture hall.
+                </p>
+                <p>
+                  By night, I transform into a researcher, applying <strong className="text-cyan-400">AI/ML for Tuberculosis Diagnosis</strong> because I believe code should save lives, not just crunch numbers.
+                </p>
+                
+                <div className="pl-4 border-l-2 border-green-500/50 my-6">
+                  <p className="italic text-gray-400">
+                    "But my roots are deep—literally. I am a <strong className="text-green-400">farmer</strong> and poet who believes tech should serve people first. Whether I'm securing cyberspace as a <strong className="text-purple-400">Certified Ethical Hacker</strong> or tending to the fields in Rajasthan, my mission remains the same: <span className="text-white font-bold underline decoration-cyan-500 decoration-2 underline-offset-4">Growth</span>."
+                  </p>
+                </div>
+
+                <p>
+                  I don't just teach syntax; I teach survival in the digital age. From designing industry-ready curricula to leading social-impact startups like <strong className="text-white">Aquantrix</strong>, I bridge the gap between silicon chips and soil, ensuring that innovation reaches the last mile.
+                </p>
+              </div>
+
+              {/* Expanded Semantic Hashtag Cloud */}
+              <div className="flex flex-wrap gap-2 mt-8 pt-6 border-t border-white/5">
+                {[
+                  'Python', 'MachineLearning', 'Cybersecurity', 'TB_Research', 
+                  'Poetry', 'Farming', 'EdTech', 'SocialInnovation', 
+                  'EthicalHacking', 'PublicSpeaking', 'Mentorship', 
+                  'OpenSource', 'Rajasthan', 'PhD_Life', 'TechForGood',
+                  'CloudComputing', 'Automation', 'Storytelling'
+                ].map(tag => (
+                  <span key={tag} className="px-3 py-1.5 rounded-md bg-white/5 hover:bg-cyan-500/20 hover:text-cyan-300 text-gray-400 text-xs font-mono border border-white/10 hover:border-cyan-500/50 transition-all cursor-default">
                     #{tag}
                   </span>
                 ))}
@@ -488,15 +573,25 @@ export default function App() {
             </Card>
 
             <div className="space-y-4">
-              <Card className="bg-gradient-to-br from-purple-900/20 to-black">
+              <Card className="bg-gradient-to-br from-purple-900/20 to-black hover:scale-[1.02] transition-transform duration-300">
                 <Shield className="text-purple-400 mb-4" size={32} />
                 <h4 className="text-xl font-bold text-white">Cyber Guardian</h4>
                 <p className="text-sm text-gray-400 mt-2">Building a generation of security-first engineers.</p>
               </Card>
-              <Card className="bg-gradient-to-br from-green-900/20 to-black">
+              <Card className="bg-gradient-to-br from-green-900/20 to-black hover:scale-[1.02] transition-transform duration-300">
                 <Sprout className="text-green-400 mb-4" size={32} />
                 <h4 className="text-xl font-bold text-white">Rooted Innovator</h4>
                 <p className="text-sm text-gray-400 mt-2">"Tech Meets Soil" - Applying innovation to rural challenges.</p>
+              </Card>
+              <Card className="bg-gradient-to-br from-blue-900/20 to-black hover:scale-[1.02] transition-transform duration-300">
+                <BookOpen className="text-blue-400 mb-4" size={32} />
+                <h4 className="text-xl font-bold text-white">PhD Scholar</h4>
+                <p className="text-sm text-gray-400 mt-2">Researching AI for healthcare impact and curriculum design.</p>
+              </Card>
+              <Card className="bg-gradient-to-br from-yellow-900/20 to-black hover:scale-[1.02] transition-transform duration-300">
+                <Mic className="text-yellow-400 mb-4" size={32} />
+                <h4 className="text-xl font-bold text-white">Public Speaker</h4>
+                <p className="text-sm text-gray-400 mt-2">Motivational storytelling that inspires the next generation.</p>
               </Card>
             </div>
           </div>
@@ -683,6 +778,14 @@ export default function App() {
                      <div className="font-mono">linkedin.com/in/jitsa00</div>
                    </div>
                  </a>
+
+                 <a href="https://www.linkedin.com/comm/mynetwork/discovery-see-all?usecase=PEOPLE_FOLLOWS&followMember=jitsa00" target="_blank" rel="noreferrer" className="flex items-center gap-4 text-gray-300 hover:text-cyan-400 transition-colors p-4 bg-blue-900/20 rounded-lg border border-blue-500/30 hover:border-blue-400 group">
+                    <UserPlus className="text-cyan-500 group-hover:text-white transition-colors" />
+                    <div>
+                      <div className="text-xs text-blue-400 uppercase font-bold tracking-widest">Direct Follow</div>
+                      <div className="font-mono font-bold text-white">Follow on LinkedIn</div>
+                    </div>
+                  </a>
                  
                  <div className="flex items-center gap-4 text-gray-300 p-4 bg-white/5 rounded-lg border border-white/10">
                    <Globe className="text-cyan-500" />
@@ -752,7 +855,7 @@ export default function App() {
                   className="w-full bg-green-600 hover:bg-green-500 text-black font-bold py-4 rounded-md uppercase tracking-widest transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(34,197,94,0.3)] hover:shadow-[0_0_30px_rgba(34,197,94,0.5)]"
                 >
                   <MessageCircle size={20} />
-                  Initialize WhatsApp Chat
+                  Initialize WhatsApp Protocol
                 </button>
               </form>
             </Card>
